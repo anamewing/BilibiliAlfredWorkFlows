@@ -455,12 +455,17 @@ def ReadComments(input_files, font_size=25.0):
     comments.sort()
     return comments
 
+def WriteCommentsXmlFile(input_files, output_file):
+    fo = ConvertToFile(output_file,'w')
+    fo.write(input_files)
+    fo.close()
 
 
 cid = '{query}'
 if cid != '':
     t = cid.split('------')
     t[1] = t[1].replace(r'/','');
+    WriteCommentsXmlFile(GetDanmuku(t[0]),r'%s/Desktop/%s-%s.xml'%(os.path.expanduser('~'),t[1],t[2]))
     Danmaku2ASS(GetDanmuku(t[0]),r'%s/Desktop/%s-%s.ass'%(os.path.expanduser('~'),t[1],t[2]), 640, 360, 0, 'sans-serif', 15, 0.5, 10, False)
     if t[2] == '1':
         print t[1]
